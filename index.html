@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Candies!</title>
+		<meta charset='utf-8'>
+		<link href='style.css' type='text/css' rel='stylesheet' />
+		<script src='https://d3js.org/d3.v4.min.js'></script>
+		<script src="https://unpkg.com/d3-simple-slider"></script>
+		<script src='main.js'></script>
+		<script src='setup.js'></script>
+   	</head>
+   	<body>
+	   	<div id='page-content'>
+			<div class='left container'>
+				<h1>Candy Ratings</h1>
+				<!-- Double bar chart (overview) -->
+				<svg id='bar-chart'></svg>
+	    	</div>
+	    	<div class='right container'>
+	    		<!-- Pie chart (details on demand) -->
+	    		<svg id='pie-chart'></svg>
+	    		<!-- Sort selection -->
+	    		<div class='sort controls'></div>
+	    		<div class='filter controls'>
+	    			<!-- Age range slider -->
+	    			<div id="age-filter"></div>
+	    			<!-- Gender filter -->
+	    			<div id="gender-filter"></div>
+	    			<!-- Country filter -->
+	    			<div id="country-filter"></div>
+	    		</div>
+	    	</div>
+	   	</div>
+	</body>
+</html>
