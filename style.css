@@ -1,24 +1,107 @@
+/* HTML BONES */
+
 body {
+    margin: 0;
+    background-color: #f9f9f9;
+}
+
+button:focus,
+select:focus {
+    outline: 0;
+}
+
+::selection {
+  background: #fff1a5; /* WebKit/Blink Browsers */
+}
+
+h1, h2, h3 {
+    font-family: 'Nunito', sans-serif;
     margin: 0;
 }
 
+h3 {
+    font-size: 14px;
+    color: #919191;
+}
+h3 a {
+    color: #79b2ea;
+}
+
 #page-content {
-    border: 3px solid lavender;
     display: flex;
-    flex-wrap: wrap;
 }
 
 .container {
-    border: 3px solid grey;
+    padding-top: 60px;
+    padding-left: 40px;
     box-sizing: border-box;
 }
 
 .left.container {
-    border-color: red;
-    width: 60%;
+    width: 60vw;
+    height: 100vh;
 }
 
 .right.container {
-    border-color: yellow;
-    width: 40%;
+    width: 40vw;
+    margin-left: 60vw;
+    height: 100%;
+    position: fixed;
+}
+
+
+/*  LEFT CHART  */
+#bar-chart {
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+/*  RIGHT CHART  */
+
+
+
+/*  SORT AND FILTER  */
+h2 {
+    font-size: 16px;
+    margin-top: 22px;
+}
+
+.controls {
+    font-family: 'Arial';
+    font-size: 12px;
+}
+
+.controls > select,
+.controls > div {
+    margin-left: 24px;
+}
+
+.sort select {
+    margin-top: 12px;
+    padding: 4px 6px;
+    font-size: 12px;
+}
+.sort button {
+    margin-left: 8px;
+    font-size: 17px;
+    background-color: #91c5f7;
+    border: 1px solid #a3a3a3;
+    border-radius: 2px;
+    transition: 0.2s;
+}
+
+.filter p {
+    margin-bottom: 0;
+    margin-top: 12px;
+}
+
+#age-filter > p > span {
+    margin-left: 32px;
+}
+.filter label {
+    margin-left: 12px;
+}
+
+.track-fill {
+    stroke: #79b2ea;
 }
