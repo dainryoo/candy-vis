@@ -1,3 +1,8 @@
+// This file sets up the html "skeleton"
+
+// This file has the start() function, which is called onload
+window.onload = start; // call start() when document has finished loading
+
 /* For data processing, use:
  * sortBy (int)
  * ascending (boolean)
@@ -27,7 +32,7 @@ var countryOptions = ['USA', 'Canada', 'Other'];
 var countryFilter = [true, true, true]; // which country options we currently have selected
 
 
-window.onload = start; // call start() when document has finished loading
+
 function start() {
     // Build sort controls
     var sort = d3.select('.sort');
@@ -50,7 +55,7 @@ function start() {
         .on('click', function() {
             ascending = !ascending;
             d3.select(this).text((ascending) ? ('↑') : ('↓'));
-            console.log('Sort is ' + ((ascending) ? ('ascending') : ('descending')));
+            // console.log('Sort is ' + ((ascending) ? ('ascending') : ('descending')));
         });
 
 
@@ -81,7 +86,7 @@ function start() {
             maxAge = val[1];
             d3.select('#age-filter').select('span')
                 .text("[" +minAge + ", " + maxAge + "]");
-            console.log(minAge + ' ~ ' + maxAge);
+            // console.log(minAge + ' ~ ' + maxAge);
         });
     filters.call(slider);
     filters.select('.axis')
@@ -116,7 +121,7 @@ function start() {
                     d3.select("#label-gender-" + i)
                         .style('color', '#919191');
                 }
-                console.log(genderOptions[i] + ': ' + genderFilter[i]);
+                // console.log(genderOptions[i] + ': ' + genderFilter[i]);
             });
 
     // Country filter
@@ -146,6 +151,6 @@ function start() {
                     d3.select("#label-country-" + i)
                         .style('color', '#919191');
                 }
-                console.log(countryOptions[i] + ': ' + countryFilter[i]);
+                // console.log(countryOptions[i] + ': ' + countryFilter[i]);
             });
 }
