@@ -89,10 +89,10 @@ h3 a {
     stroke: none;
 }
 .joy.hovered {
-    fill: #77dda9;
+    fill: #66d69d;
 }
 .despair.hovered {
-    fill: #d87796;
+    fill: #cc6a82;
 }
 
 
