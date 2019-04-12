@@ -1,3 +1,5 @@
+var hovered_index = -1; // index of the array we are hovering over in the bar chart
+
 function buildLeftChart(data) {
 
     var svg = d3.select('#bar-chart');
@@ -70,16 +72,18 @@ function buildLeftChart(data) {
         .tickSizeOuter(0);
 
 
-    // the bars!
+
+
+    // the bars!!!!!
 
     // joy bars
     svg.append('g')
         .attr('id', 'joy-bar-group')
-        .selectAll('.joy-bar')
+        .selectAll('.joy')
         .data(data)
         .enter()
         .append('rect')
-        .attr('class', 'joy-bar')
+        .attr('class', 'joy bar')
         .attr('x', (hor_pad + half_width))
         .attr('y', function(d,i) {
             return title_height + top_pad + i*(bar_height+bar_padding);
@@ -87,15 +91,24 @@ function buildLeftChart(data) {
         .attr('width', function(d) {
             return x_scale(d.like_perc);
         })
-        .attr('height', bar_height);
+        .attr('height', bar_height)
+        .on('mouseover', function(d,i) {
+            d3.select(this).classed('hovered', true);
+            hovered_index = i;
+        })
+        .on('mouseout', function() {
+            d3.select(this).classed('hovered', false);
+            hovered_index = -1;
+        });
 
+    // despair bars
     svg.append('g')
         .attr('id', 'despair-bar-group')
-        .selectAll('.despair-bar')
+        .selectAll('.despair')
         .data(data)
         .enter()
         .append('rect')
-        .attr('class', 'despair-bar')
+        .attr('class', 'despair bar')
         .attr('x', function(d) {
             return (hor_pad + half_width) - x_scale(d.dislike_perc);
         })
@@ -105,7 +118,15 @@ function buildLeftChart(data) {
         .attr('width', function(d) {
             return x_scale(d.dislike_perc);
         })
-        .attr('height', bar_height);
+        .attr('height', bar_height).on('mouseover', function(d,i) {
+            d3.select(this).classed('hovered', true);
+            hovered_index = i;
+        })
+        .on('mouseout', function() {
+            d3.select(this).classed('hovered', false);
+            hovered_index = -1;
+        });
+
 
 
     // add right x-axis

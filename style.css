@@ -80,13 +80,19 @@ h3 a {
     stroke: white;
 }
 
-.joy-bar {
+.joy {
     fill: #78edb1;
     stroke: none;
 }
-.despair-bar {
+.despair {
     fill: #ed789d;
     stroke: none;
+}
+.joy.hovered {
+    fill: #77dda9;
+}
+.despair.hovered {
+    fill: #d87796;
 }
 
 
@@ -124,7 +130,8 @@ h2 {
     transition: 0.2s;
 }
 
-.filter p {
+.filter p,
+.group p {
     margin-bottom: 0;
     margin-top: 6px;
 }
@@ -137,8 +144,9 @@ h2 {
     stroke: #79b2ea;
 }
 
-.filter label {
-    margin-left: 12px;
+.filter label,
+.group label {
+    margin-left: 14px;
 }
 
 #group-selection > p > label:first-child {
