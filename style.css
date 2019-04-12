@@ -82,8 +82,8 @@ h3 a {
 
 /*  SORT AND FILTER  */
 h2 {
-    font-size: 16px;
-    margin-top: 22px;
+    font-size: 14px;
+    margin-top: 18px;
 }
 
 .controls {
@@ -112,16 +112,23 @@ h2 {
 
 .filter p {
     margin-bottom: 0;
-    margin-top: 12px;
+    margin-top: 6px;
 }
 
 #age-filter > p > span {
     margin-left: 32px;
 }
+/*color of slider*/
+.track-fill {
+    stroke: #79b2ea;
+}
+
 .filter label {
     margin-left: 12px;
 }
 
-.track-fill {
-    stroke: #79b2ea;
+#group-selection > p > label:first-child {
+    margin-left: 28px;
 }
+
+

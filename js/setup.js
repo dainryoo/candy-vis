@@ -10,6 +10,7 @@ window.onload = start; // call start() when document has finished loading
  * maxAge (int)
  * genderFilter (boolean arr)
  * countryFilter (boolean arr)
+ * groupSelection (boolean arr)
  */
 
 
@@ -30,6 +31,9 @@ var genderFilter = [true, true, true]; // which gender options we currently have
 
 var countryOptions = ['USA', 'Canada', 'Other'];
 var countryFilter = [true, true, true]; // which country options we currently have selected
+
+var groupOptions = ['Candy', 'Chocolate', 'Other'];
+var groupSelection = [true, true, true]; // which group options we currently have selected
 
 
 
@@ -125,7 +129,7 @@ function start() {
             });
 
     // Country filter
-    var filters = d3.select('#country-filter');
+    filters = d3.select('#country-filter');
     filters.append('p')
         .text('Country: ')
     .selectAll('label')
@@ -153,4 +157,35 @@ function start() {
                 }
                 // console.log(countryOptions[i] + ': ' + countryFilter[i]);
             });
+
+    // Group selection
+    filters = d3.select('#group-selection');
+    filters.append('p')
+        .text('Type: ')
+    .selectAll('label')
+        .data(groupOptions)
+        .enter()
+        .append('label')
+            .text(function(d, i) {
+                return groupOptions[i];
+            })
+            .attr('id', function(d, i) {
+                return ("label-group-" + i);
+            })
+        .append('input')
+            .attr('type', 'checkbox')
+            .attr('checked', true)
+            .attr('class', 'checkbox')
+            .on('click', function(d, i) {
+                groupSelection[i] = d3.select(this).property('checked')
+                if (groupSelection[i]) {
+                    d3.select("#label-group-" + i)
+                        .style('color', 'black');
+                } else {
+                    d3.select("#label-group-" + i)
+                        .style('color', '#919191');
+                }
+                // console.log(countryOptions[i] + ': ' + countryFilter[i]);
+            });
+
 }
