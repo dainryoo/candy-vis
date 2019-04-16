@@ -1,4 +1,26 @@
 /**
+ * Creates an object for raw responses.
+ *
+ * @param gender    Gender of the respondent.
+ * @param age       Age of the respondent.
+ * @param country   Country of the respondent.
+ * @param likes     Array of liked treats.
+ * @param dislikes  Array of disliked treats.
+ * @param neutral   Array of neutral opinion treats.
+ */
+function RawResponse(gender, age, country, likes, dislikes, neutral)
+{
+    return {
+        gender: gender,
+        age: age,
+        country: country,
+        liked: likes,
+        disliked: dislikes,
+        neutral: neutral
+    }
+}
+
+/**
  * Creates a response object.
  *
  * @param gender   the gender of the respondent.
@@ -9,11 +31,13 @@
 function Response(gender, age, country)
 {
     // "M" for male, "F" for female, "O" for other.
-    var gender_symbol = gender === "Male" ? "M" : (gender === "Female" ? "F" : "O");
+    var gender_symbol = gender === "Male" ? 'M' : (gender === "Female" ? 'F' : 'O');
+    // "U" for US, "C" for Canada, "O" for other.
+    var country_symbol = country === "United States" ? 'U' : (country === "Canada" ? 'C' : 'O');
     return {
         gender: gender_symbol,
         age: age,
-        country: country
+        country: country_symbol
     }
 }
 

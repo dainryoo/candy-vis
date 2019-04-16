@@ -32,14 +32,7 @@ function getResponse(raw)
         }
     });
     // Return object representation of each response.
-    return {
-        gender: raw.Q2_GENDER,
-        age: +raw.Q3_AGE,
-        country: raw.Q4_COUNTRY,
-        liked: liked,
-        disliked: disliked,
-        neutral: neutral
-    }
+    return RawResponse(raw.Q2_GENDER, +raw.Q3_AGE, raw.Q4_COUNTRY, liked, disliked, neutral);
 }
 
 /**
@@ -73,12 +66,7 @@ function getCandyData(responses, candies)
     {
         var candy_obj = candy[1];
         // Get Percentages.
-        candy_obj.like_count = candy_obj.likes.length;
-        candy_obj.dislike_count = candy_obj.dislikes.length;
-        candy_obj.neutral_count = candy_obj.neutral.length;
         candy_obj.update();
-        // Add ID for lookup purposes.
-        candy_obj.id = candy[0];
         // Add to array.
         candy_list.push(candy_obj);
     });
