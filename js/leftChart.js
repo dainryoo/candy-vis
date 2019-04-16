@@ -1,6 +1,6 @@
 var hovered_index = -1; // index of the array we are hovering over in the bar chart
 
-function buildLeftChart(data) {
+function buildLeftChart(responses, data) {
 
     var svg = d3.select('#bar-chart');
     var top_pad = 20; // padding space on top of axis
@@ -89,7 +89,8 @@ function buildLeftChart(data) {
             return title_height + top_pad + i*(bar_height+bar_padding);
         })
         .attr('width', function(d) {
-            return x_scale(d.like_perc);
+            var like_percentage = d.likes.length / responses.length;
+            return x_scale(like_percentage);
         })
         .attr('height', bar_height)
         .on('mouseover', function(d,i) {
@@ -116,7 +117,8 @@ function buildLeftChart(data) {
             return title_height + top_pad + i*(bar_height+bar_padding);
         })
         .attr('width', function(d) {
-            return x_scale(d.dislike_perc);
+            var dislike_percentage = d.dislikes.length / responses.length;
+            return x_scale(dislike_percentage);
         })
         .attr('height', bar_height).on('mouseover', function(d,i) {
             d3.select(this).classed('hovered', true);
