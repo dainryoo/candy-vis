@@ -7,4 +7,5 @@ d3.csv(filename, raw => getResponse(raw), (error, data) =>
     var candy_data = getCandyData(data, candies);  // This is an array of each candy and its respective data.
 
     buildLeftChart(candy_data);
+    buildRightChart();
 });

@@ -97,7 +97,38 @@ h3 a {
 
 
 /*  RIGHT CHART  */
+.right-tick .tick text {
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+}
 
+.joy-selected {
+    fill: #50A87B;
+    stroke: none;
+}
+
+.neutral {
+    fill: #BCBCBC;
+    stroke: none;
+}
+
+.neutral-selected {
+    fill: #828282;
+    stroke: none;
+}
+
+.despair-selected {
+    fill: #A5566A;
+    stroke: none;
+}
+
+.label {
+    font-family: 'Nunito', sans-serif;
+}
+
+.candy-name {
+    fill: #919191;
+}
 
 
 /*  SORT AND FILTER  */
@@ -152,5 +183,3 @@ h2 {
 #group-selection > p > label:first-child {
     margin-left: 28px;
 }
-
-
