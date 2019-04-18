@@ -78,26 +78,33 @@ function sortChart(candies)
     var svg = d3.select('#bar-chart');
     // Shrink everything first.
     var despair_group = svg.select("#despair-bar-group");
+    var selected = despair_group.select(".selected").data()[0];
     despair_group.selectAll(".despair")
+        .classed("selected", false)
         .transition()
         .duration(anim_duration)
         .attr("x", () => hor_pad + half_width)
-        .attr("width", 0)
+        .attr("width", 0);
     var joy_group = svg.select("#joy-bar-group");
     joy_group.selectAll(".joy")
+        .classed("selected", false)
         .transition()
         .duration(anim_duration)
         .attr("width", 0);
     // Re-appear sorted
     despair_group.selectAll(".despair")
         .data(candies)
+        .classed("selected", d => (selected === undefined) ? false : d.name === selected.name)
         .transition()
         .duration(anim_duration)
+        // .delay(anim_duration)
         .attr("x", d => hor_pad + half_width - x_scale(d.dislike_perc))
         .attr("width", d => x_scale(d.dislike_perc));
     joy_group.selectAll(".joy")
         .data(candies)
+        .classed("selected", d => (selected === undefined) ? false : d.name === selected.name)
         .transition()
+        // .delay(anim_duration)
         .duration(anim_duration)
         .attr("width", d => x_scale(d.like_perc));
 }

@@ -82,17 +82,29 @@ h3 a {
 
 .joy {
     fill: #78edb1;
-    stroke: none;
+    stroke: white;
 }
 .despair {
     fill: #ed789d;
-    stroke: none;
+    stroke: white;
 }
 .joy.hovered {
     fill: #66d69d;
+    cursor: pointer;
 }
 .despair.hovered {
     fill: #cc6a82;
+    cursor: pointer;
+}
+
+.joy.selected {
+    fill: #50A87B;
+    cursor: default;
+}
+
+.despair.selected {
+    fill: #A5566A;
+    cursor: default;
 }
 
 
