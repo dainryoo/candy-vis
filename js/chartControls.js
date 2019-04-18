@@ -36,7 +36,7 @@ var groupSelection = [true, true, true]; // which group options we currently hav
 
 
 var x_scale, x_scale_reverse; // x-scales for left chart
-var hor_pad, width, half_width; 
+var hor_pad, width, half_width;
 
 function start() {
     hor_pad = 14; // horizontal padding for left chart
@@ -46,18 +46,18 @@ function start() {
     x_scale = d3.scaleLinear()
         .range([0, half_width])
         .domain([0, 1]); // 0% to 100%
-    
+
     // x-scale for left half (100-0)
     x_scale_reverse = d3.scaleLinear()
         .range([half_width, 0])
         .domain([0, 1]);
-    
+
     // Build sort controls
     var sort = d3.select('.sort');
     sort.append('select')
-        .on('change', function() {
-            sortBy = d3.select(this).property('value');
-            console.log('Now sorting by: ' + sortOptions[sortBy]);
+        .on('change', function()
+        {
+            sortBy = +d3.select(this).property('value');
         })
         .selectAll('option')
         .data(sortOptions)
@@ -73,7 +73,24 @@ function start() {
         .on('click', function() {
             ascending = !ascending;
             d3.select(this).text((ascending) ? ('↑') : ('↓'));
-            // console.log('Sort is ' + ((ascending) ? ('ascending') : ('descending')));
+        });
+    sort.append("button")
+        .attr("id", "sort-button")
+        .text("Sort")
+        .on("click", d =>
+        {
+            if (sortBy === 0)
+            {
+                sortChart(sortByName(candy_data, ascending));
+            }
+            else if (sortBy === 1)
+            {
+                sortChart(sortByLikes(candy_data, ascending));
+            }
+            else if (sortBy === 2)
+            {
+                sortChart(sortByDislikes(candy_data, ascending));
+            }
         });
 
 
@@ -206,9 +223,9 @@ function start() {
 }
 
 function updateGender() {
-    
+
     var filtered_data = copy(candy_data);
-    
+
     for (var i = 0; i < candy_data.length; i++) {
         var new_likes = candy_data[i].likes.filter(
             function(el) {
@@ -218,7 +235,7 @@ function updateGender() {
             }
         );
         filtered_data[i].likes = new_likes;
-        
+
         var new_dislikes = candy_data[i].dislikes.filter(
             function(el) {
                 return (el.gender == "M" && genderFilter[0]) ||
@@ -228,7 +245,7 @@ function updateGender() {
         );
         filtered_data[i].dislikes = new_dislikes;
     }
-    
+
     // update the joy bars
     d3.select('#bar-chart').selectAll('.joy')
         .data(filtered_data)
@@ -248,7 +265,7 @@ function updateGender() {
             var dislike_percentage = d.dislikes.length / response_data.length;
             return (hor_pad + half_width) - x_scale(dislike_percentage);
         });
-    
+
 }
 
 
