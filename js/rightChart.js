@@ -1,12 +1,12 @@
-var width = 350;
-var height = 350;
+var r_width = 350;
+var r_height = 350;
 
 // Margins
 var left_margin = 70;
 var right_margin = 35;
 var top_margin = 100;
 var bot_margin = 50;
-var text_horz_margin = width / 3.5;
+var text_horz_margin = r_width / 3.5;
 var text_vert_margin = 45;
 var text_betw_margin = 5;
 
@@ -48,16 +48,16 @@ function buildRightChart()
     var svg = d3.select("#right-chart");
     // Scales
     x_scale = d3.scaleLinear()
-        .range([left_margin, width - right_margin])
+        .range([left_margin, r_width - right_margin])
         .domain([0, 100]);
     y_scale = d3.scaleBand()
-        .range([top_margin, height - bot_margin])
+        .range([top_margin, r_height - bot_margin])
         .domain(data.map(row => row.label))
         .padding(0.25);
 
     // Create axes
     svg.append("g")
-        .attr("transform", "translate(0, " + (height - bot_margin) + ")")
+        .attr("transform", "translate(0, " + (r_height - bot_margin) + ")")
         .call(d3.axisBottom(x_scale)
             .ticks(5)
             .tickValues([20, 40, 60, 80])
