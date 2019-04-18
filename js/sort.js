@@ -68,11 +68,11 @@ function sortByDislikes(candies, ascending)
 }
 
 /**
- * Sorts the actual chart.
+ * Updates chart with new data set.
  *
- * @param candies  the new, sorted dataset.
+ * @param candies  the updated data set.
  */
-function sortChart(candies)
+function updateChart(candies)
 {
     var anim_duration = 500;
     var svg = d3.select('#bar-chart');
