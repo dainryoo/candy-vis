@@ -58,6 +58,7 @@ function start() {
         .on('change', function()
         {
             sortBy = +d3.select(this).property('value');
+            sorting();
         })
         .selectAll('option')
         .data(sortOptions)
@@ -73,26 +74,8 @@ function start() {
         .on('click', function() {
             ascending = !ascending;
             d3.select(this).text((ascending) ? ('↑') : ('↓'));
+            sorting();
         });
-    sort.append("button")
-        .attr("id", "sort-button")
-        .text("Sort")
-        .on("click", d =>
-        {
-            if (sortBy === 0)
-            {
-                sortChart(sortByName(candy_data, ascending));
-            }
-            else if (sortBy === 1)
-            {
-                sortChart(sortByLikes(candy_data, ascending));
-            }
-            else if (sortBy === 2)
-            {
-                sortChart(sortByDislikes(candy_data, ascending));
-            }
-        });
-
 
     // Build filter controls
     var filters;
@@ -278,4 +261,23 @@ function copy(o) {
        output[key] = (typeof v === "object") ? copy(v) : v;
    }
    return output;
+}
+
+/**
+ * Sorting action for the chart.
+ */
+function sorting()
+{
+    if (sortBy === 0)
+    {
+        sortChart(sortByName(candy_data, ascending));
+    }
+    else if (sortBy === 1)
+    {
+        sortChart(sortByLikes(candy_data, ascending));
+    }
+    else if (sortBy === 2)
+    {
+        sortChart(sortByDislikes(candy_data, ascending));
+    }
 }
