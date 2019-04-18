@@ -10,5 +10,5 @@ d3.csv(filename, raw => getResponse(raw), (error, data) =>
     buildLeftChart(candy_data);
     buildRightChart();
 
-    sortChart(sortByName(candy_data, true));
+    updateDataset(sortByName(candy_data, true));
 });

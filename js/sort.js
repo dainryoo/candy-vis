@@ -72,7 +72,7 @@ function sortByDislikes(candies, ascending)
  *
  * @param candies  the updated data set.
  */
-function updateChart(candies)
+function updateDataset(candies)
 {
     var anim_duration = 500;
     var svg = d3.select('#bar-chart');

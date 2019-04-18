@@ -270,14 +270,14 @@ function sorting()
 {
     if (sortBy === 0)
     {
-        updateChart(sortByName(candy_data, ascending));
+        updateDataset(sortByName(candy_data, ascending));
     }
     else if (sortBy === 1)
     {
-        updateChart(sortByLikes(candy_data, ascending));
+        updateDataset(sortByLikes(candy_data, ascending));
     }
     else if (sortBy === 2)
     {
-        updateChart(sortByDislikes(candy_data, ascending));
+        updateDataset(sortByDislikes(candy_data, ascending));
     }
 }
