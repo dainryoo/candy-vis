@@ -2,18 +2,18 @@ var r_width = 350;
 var r_height = 350;
 
 // Margins
-var left_margin = 70;
-var right_margin = 35;
-var top_margin = 100;
-var bot_margin = 50;
+var r_left_margin = 70;
+var r_right_margin = 35;
+var r_top_margin = 100;
+var r_bot_margin = 50;
 var text_horz_margin = r_width / 3.5;
 var text_vert_margin = 45;
 var text_betw_margin = 5;
 
-var anim_duration = 400;
+var r_anim_duration = 400;
 
-var x_scale;
-var y_scale;
+var rx_scale;
+var ry_scale;
 
 
 /**
@@ -47,18 +47,18 @@ function buildRightChart()
     // SVG
     var svg = d3.select("#right-chart");
     // Scales
-    x_scale = d3.scaleLinear()
-        .range([left_margin, r_width - right_margin])
+    rx_scale = d3.scaleLinear()
+        .range([r_left_margin, r_width - r_right_margin])
         .domain([0, 100]);
-    y_scale = d3.scaleBand()
-        .range([top_margin, r_height - bot_margin])
+    ry_scale = d3.scaleBand()
+        .range([r_top_margin, r_height - r_bot_margin])
         .domain(data.map(row => row.label))
         .padding(0.25);
 
     // Create axes
     svg.append("g")
-        .attr("transform", "translate(0, " + (r_height - bot_margin) + ")")
-        .call(d3.axisBottom(x_scale)
+        .attr("transform", "translate(0, " + (r_height - r_bot_margin) + ")")
+        .call(d3.axisBottom(rx_scale)
             .ticks(5)
             .tickValues([20, 40, 60, 80])
             .tickFormat(d => d + "%")
@@ -66,8 +66,8 @@ function buildRightChart()
         )
         .attr("class", "right-tick");
     svg.append("g")
-        .attr("transform", "translate(" + left_margin + ", 0)")
-        .call(d3.axisLeft(y_scale)
+        .attr("transform", "translate(" + r_left_margin + ", 0)")
+        .call(d3.axisLeft(ry_scale)
             .tickSizeOuter(0))
         .attr("class", "right-tick");
 
@@ -79,7 +79,7 @@ function buildRightChart()
         .attr("text-anchor", "end")
         .attr("alignment-baseline", "hanging")
         .attr("x", text_horz_margin)
-        .attr("y", top_margin - text_vert_margin + text_betw_margin)
+        .attr("y", r_top_margin - text_vert_margin + text_betw_margin)
         .text("Selected:");
     selected_group.append("text")
         .attr("class", "label candy-name")
@@ -87,14 +87,14 @@ function buildRightChart()
         .attr("text-anchor", "start")
         .attr("alignment-baseline", "hanging")
         .attr("x", text_horz_margin + 3)
-        .attr("y", top_margin - text_vert_margin + text_betw_margin);
+        .attr("y", r_top_margin - text_vert_margin + text_betw_margin);
     var hovered_group = group.append("g").attr("id", "hovered-label-group");
     hovered_group.append("text")
         .attr("class", "label")
         .attr("text-anchor", "end")
         .attr("alignment-baseline", "ideographic")
         .attr("x", text_horz_margin)
-        .attr("y", top_margin - text_vert_margin - text_betw_margin)
+        .attr("y", r_top_margin - text_vert_margin - text_betw_margin)
         .text("Hovered:");
     hovered_group.append("text")
         .attr("class", "label candy-name")
@@ -102,7 +102,7 @@ function buildRightChart()
         .attr("text-anchor", "start")
         .attr("alignment-baseline", "ideographic")
         .attr("x", text_horz_margin + 3)
-        .attr("y", top_margin - text_vert_margin - text_betw_margin);
+        .attr("y", r_top_margin - text_vert_margin - text_betw_margin);
 
     // Create bar groups
     group = svg.append("g").attr("id", "bars-group");
@@ -133,13 +133,13 @@ function createBars(group, rows, selected)
         .attr("class", "bar-group");
     new_group.append("rect")
         .attr("class", d => d.class + (selected ? "-selected" : ""))
-        .attr("x", s => x_scale(0) + 1)
-        .attr("y", d => y_scale(d.label) + (selected ? y_scale.bandwidth() / 2 + 1 : 0))
-        .attr("height", y_scale.bandwidth() / 2);
+        .attr("x", s => rx_scale(0) + 1)
+        .attr("y", d => ry_scale(d.label) + (selected ? ry_scale.bandwidth() / 2 + 1 : 0))
+        .attr("height", ry_scale.bandwidth() / 2);
     new_group.append("text")
         .attr("class", "label")
-        .attr("y", d => y_scale(d.label) + (y_scale.bandwidth() * (selected ? 3 : 1) / 4))
-        .attr("x", d => x_scale(0))
+        .attr("y", d => ry_scale(d.label) + (ry_scale.bandwidth() * (selected ? 3 : 1) / 4))
+        .attr("x", d => rx_scale(0))
         .attr("alignment-baseline", "middle");
 }
 
@@ -165,10 +165,10 @@ function updateChart(treat, selected)
     }
     // Animate bars
     var g = group.selectAll(".bar-group");
-    var anim = g.transition().duration(d => anim_duration);
-    anim.select("rect").attr("width", d => data[d.label] === null ? 0 : x_scale(data[d.label]) - left_margin - 1);
+    var anim = g.transition().duration(d => r_anim_duration);
+    anim.select("rect").attr("width", d => data[d.label] === null ? 0 : rx_scale(data[d.label]) - r_left_margin - 1);
     anim.select("text")
-        .attr("x", d => data[d.label] === null ? x_scale(0) : x_scale(data[d.label]) + 3)
+        .attr("x", d => data[d.label] === null ? rx_scale(0) : rx_scale(data[d.label]) + 3)
         .text(d => data[d.label] === null ? "" : Math.round(data[d.label]) + "%");
     // Update labels
     svg.select("#" + class_pre + "-label-group").select("#" + class_pre + "-text").text(text);
