@@ -258,6 +258,11 @@ function filterData() {
             }
         );
         filtered_data[i].neutral = new_neutral;
+
+        var total_length = new_likes.length + new_dislikes.length + new_neutral.length;
+        filtered_data[i].like_perc = new_likes.length * 1.0  / total_length;
+        filtered_data[i].dislike_perc = new_dislikes.length * 1.0  / total_length;
+        filtered_data[i].neutral_perc = new_neutral.length * 1.0  / total_length;
     }
     //console.log(filtered_data);
 
@@ -267,9 +272,7 @@ function filterData() {
         .transition()
         .duration(anim_duration)
         .attr('width', function(d) {
-            var num_responses = d.likes.length + d.dislikes.length + d.neutral.length;
-            var like_percentage = d.likes.length * 1.0 / num_responses;
-            return x_scale(like_percentage);
+            return x_scale(d.like_perc);
         });
 
     // update the despair bars
@@ -278,18 +281,13 @@ function filterData() {
         .transition()
         .duration(anim_duration)
         .attr('width', function(d) {
-            var num_responses = d.likes.length + d.dislikes.length + d.neutral.length;
-            var dislike_percentage = d.dislikes.length* 1.0 / num_responses;
-            return x_scale(dislike_percentage);
+            return x_scale(d.dislike_perc);
         })
         .attr('x', function(d) {
-            var num_responses = d.likes.length + d.dislikes.length + d.neutral.length;
-            var dislike_percentage = d.dislikes.length* 1.0 / num_responses;
-            return (hor_pad + half_width) - x_scale(dislike_percentage);
+            return (hor_pad + half_width) - x_scale(d.dislike_perc);
         });
 
-    //updateDataset(sortByName(filtered_data, false));
-
+    sorting();
 }
 
 
@@ -307,6 +305,7 @@ function copy(o) {
 /**
  * Sorting action for the chart.
  */
+ /*
 function sorting()
 {
     if (sortBy === 0)
@@ -320,5 +319,20 @@ function sorting()
     else if (sortBy === 2)
     {
         updateDataset(sortByDislikes(candy_data, ascending));
+    }
+}*/
+function sorting()
+{
+    if (sortBy === 0)
+    {
+        updateDataset(sortByName(filtered_data, ascending));
+    }
+    else if (sortBy === 1)
+    {
+        updateDataset(sortByLikes(filtered_data, ascending));
+    }
+    else if (sortBy === 2)
+    {
+        updateDataset(sortByDislikes(filtered_data, ascending));
     }
 }
