@@ -104,7 +104,8 @@ function start() {
             maxAge = val[1];
             d3.select('#age-filter').select('span')
                 .text('[' +minAge + ', ' + maxAge + ']');
-            // console.log(minAge + ' ~ ' + maxAge);
+            //console.log(minAge + ' ~ ' + maxAge);
+            filterData();
         });
     filters.call(slider);
     filters.select('.axis')
@@ -140,7 +141,7 @@ function start() {
                         .style('color', '#919191');
                 }
                 // console.log(genderOptions[i] + ': ' + genderFilter[i]);
-                updateGender();
+                filterData();
             });
 
     // Country filter
@@ -171,6 +172,7 @@ function start() {
                         .style('color', '#919191');
                 }
                 // console.log(countryOptions[i] + ': ' + countryFilter[i]);
+                filterData();
             });
 
     // Group selection
@@ -201,53 +203,92 @@ function start() {
                         .style('color', '#919191');
                 }
                 // console.log(countryOptions[i] + ': ' + countryFilter[i]);
+                filterData();
             });
 
 }
 
-function updateGender() {
+function filterData() {
+    var anim_duration = 500;
 
-    var filtered_data = copy(candy_data);
+    filtered_data = copy(candy_data);
 
     for (var i = 0; i < candy_data.length; i++) {
         var new_likes = candy_data[i].likes.filter(
             function(el) {
-                return (el.gender == "M" && genderFilter[0]) ||
+                return ((el.gender == "M" && genderFilter[0]) ||
                     (el.gender == "F" && genderFilter[1]) ||
-                    (el.gender == "O" && genderFilter[2]);
+                    (el.gender == "O" && genderFilter[2]))
+                    &&
+                    ((el.country == "U" && countryFilter[0]) ||
+                    (el.country == "C" && countryFilter[1]) ||
+                    (el.country == "O" && countryFilter[2]))
+                    &&
+                    (el.age >= minAge && el.age <= maxAge);
             }
         );
         filtered_data[i].likes = new_likes;
 
         var new_dislikes = candy_data[i].dislikes.filter(
             function(el) {
-                return (el.gender == "M" && genderFilter[0]) ||
+                return ((el.gender == "M" && genderFilter[0]) ||
                     (el.gender == "F" && genderFilter[1]) ||
-                    (el.gender == "O" && genderFilter[2]);
+                    (el.gender == "O" && genderFilter[2]))
+                    &&
+                    ((el.country == "U" && countryFilter[0]) ||
+                    (el.country == "C" && countryFilter[1]) ||
+                    (el.country == "O" && countryFilter[2]))
+                    &&
+                    (el.age >= minAge && el.age <= maxAge);
             }
         );
         filtered_data[i].dislikes = new_dislikes;
+
+        var new_neutral = candy_data[i].neutral.filter(
+            function(el) {
+                return ((el.gender == "M" && genderFilter[0]) ||
+                    (el.gender == "F" && genderFilter[1]) ||
+                    (el.gender == "O" && genderFilter[2]))
+                    &&
+                    ((el.country == "U" && countryFilter[0]) ||
+                    (el.country == "C" && countryFilter[1]) ||
+                    (el.country == "O" && countryFilter[2]))
+                    &&
+                    (el.age >= minAge && el.age <= maxAge);
+            }
+        );
+        filtered_data[i].neutral = new_neutral;
     }
+    //console.log(filtered_data);
 
     // update the joy bars
     d3.select('#bar-chart').selectAll('.joy')
         .data(filtered_data)
+        .transition()
+        .duration(anim_duration)
         .attr('width', function(d) {
-            var like_percentage = d.likes.length / response_data.length;
-            //var x_scale = d3.scaleLinear().range([0, half_width]).domain([0, 1]);
+            var num_responses = d.likes.length + d.dislikes.length + d.neutral.length;
+            var like_percentage = d.likes.length * 1.0 / num_responses;
             return x_scale(like_percentage);
-        })
+        });
+
     // update the despair bars
     d3.select('#bar-chart').selectAll('.despair')
         .data(filtered_data)
+        .transition()
+        .duration(anim_duration)
         .attr('width', function(d) {
-            var dislike_percentage = d.dislikes.length / response_data.length;
+            var num_responses = d.likes.length + d.dislikes.length + d.neutral.length;
+            var dislike_percentage = d.dislikes.length* 1.0 / num_responses;
             return x_scale(dislike_percentage);
         })
         .attr('x', function(d) {
-            var dislike_percentage = d.dislikes.length / response_data.length;
+            var num_responses = d.likes.length + d.dislikes.length + d.neutral.length;
+            var dislike_percentage = d.dislikes.length* 1.0 / num_responses;
             return (hor_pad + half_width) - x_scale(dislike_percentage);
         });
+
+    //updateDataset(sortByName(filtered_data, false));
 
 }
 

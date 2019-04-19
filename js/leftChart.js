@@ -1,6 +1,6 @@
 var hovered_index = -1; // index of the array we are hovering over in the bar chart
 
-function buildLeftChart(data) {
+function buildLeftChart() {
 
     var svg = d3.select('#bar-chart');
     var top_pad = 20; // padding space on top of axis
@@ -10,7 +10,7 @@ function buildLeftChart(data) {
     var title_top = 25; // top y value of chart title
     var title_height = 50; // how tall of a space the chart title takes up
 
-    svg.attr('height', title_top + title_height + top_pad + data.length * (bar_height + bar_padding)); // update height of svg depending on number of data items
+    svg.attr('height', title_top + title_height + top_pad + candy_data.length * (bar_height + bar_padding)); // update height of svg depending on number of data items
 
 
     // title underlines
@@ -71,7 +71,7 @@ function buildLeftChart(data) {
     svg.append('g')
         .attr('id', 'joy-bar-group')
         .selectAll('.joy')
-        .data(data)
+        .data(candy_data)
         .enter()
         .append('rect')
         .attr('class', 'joy bar')
@@ -121,7 +121,7 @@ function buildLeftChart(data) {
     svg.append('g')
         .attr('id', 'despair-bar-group')
         .selectAll('.despair')
-        .data(data)
+        .data(candy_data)
         .enter()
         .append('rect')
         .attr('class', 'despair bar')
