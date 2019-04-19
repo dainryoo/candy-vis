@@ -114,6 +114,10 @@ h3 a {
     font-family: 'Nunito', sans-serif;
 }
 
+#hovered-group rect {
+    stroke: none;
+}
+
 .joy-selected {
     fill: #50A87B;
     stroke: none;
