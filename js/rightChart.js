@@ -3,7 +3,7 @@ var r_height = 350;
 
 // Margins
 var r_left_margin = 70;
-var r_right_margin = 35;
+var r_right_margin = 70;
 var r_top_margin = 100;
 var r_bot_margin = 50;
 var text_horz_margin = r_width / 3.5;
@@ -166,10 +166,18 @@ function updateChart(treat, selected)
     // Animate bars
     var g = group.selectAll(".bar-group");
     var anim = g.transition().duration(d => r_anim_duration);
-    anim.select("rect").attr("width", d => data[d.label] === null ? 0 : rx_scale(data[d.label]) - r_left_margin - 1);
+    anim.select("rect").attr("width", d => data[d.label] === null ? 0 : rx_scale(data[d.label]) - r_left_margin);
     anim.select("text")
         .attr("x", d => data[d.label] === null ? rx_scale(0) : rx_scale(data[d.label]) + 3)
-        .text(d => data[d.label] === null ? "" : Math.round(data[d.label]) + "%");
+        .text(d =>
+        {
+            if (data[d.label] !== null)
+            {
+                var label_value = Math.round(data[d.label] * 10) / 10;
+                return label_value + (label_value % 1 == 0 ? ".0%" : "%");
+            }
+            return "";
+        });
     // Update labels
     svg.select("#" + class_pre + "-label-group").select("#" + class_pre + "-text").text(text);
 }

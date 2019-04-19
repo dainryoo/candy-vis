@@ -189,3 +189,16 @@ function buildLeftChart() {
 
 
 }
+
+/**
+ * Gets the selected treat on the left chart.
+ *
+ * @return the selected treat.
+ */
+function getSelectedTreat()
+{
+     return d3.select('#bar-chart')
+        .select("#joy-bar-group")
+        .select(".selected")
+        .data()[0];
+}

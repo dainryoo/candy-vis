@@ -7,7 +7,7 @@
  */
 function sortByName(candies, ascending)
 {
-    return candies.slice(0).sort((c1, c2) =>
+    return copyCandies(candies).sort((c1, c2) =>
     {
         if (c1.name > c2.name)
         {
@@ -30,7 +30,7 @@ function sortByName(candies, ascending)
  */
 function sortByLikes(candies, ascending)
 {
-    return candies.slice(0).sort((c1, c2) =>
+    return copyCandies(candies).sort((c1, c2) =>
     {
         if (c1.like_perc > c2.like_perc)
         {
@@ -53,7 +53,7 @@ function sortByLikes(candies, ascending)
  */
 function sortByDislikes(candies, ascending)
 {
-    return candies.slice(0).sort((c1, c2) =>
+    return copyCandies(candies).sort((c1, c2) =>
     {
         if (c1.dislike_perc > c2.dislike_perc)
         {

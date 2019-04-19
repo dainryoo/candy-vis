@@ -73,4 +73,33 @@ class Candy
         this.dislike_perc = this.dislikes.length * 1.0 / this.total;
         this.neutral_perc = this.neutral.length * 1.0 / this.total;
     }
+
+    /**
+     * Makes a copy of a candy object.
+     */
+    static copy(candy)
+    {
+        var faker = new Candy(candy.name, candy.type);
+        candy.likes.forEach(response => { faker.likes.push({ gender: response.gender, age: response.age, country: response.country }) });
+        candy.dislikes.forEach(response => { faker.dislikes.push({ gender: response.gender, age: response.age, country: response.country }) });
+        candy.neutral.forEach(response => { faker.neutral.push({ gender: response.gender, age: response.age, country: response.country }) });
+        faker.update();
+        return faker;
+    }
+}
+
+/**
+ * Copies a list of candies.
+ *
+ * @param treatlist  the list to copy.
+ * @return a copy of the given list.
+ */
+function copyCandies(treatlist)
+{
+   var copylist = [];
+   treatlist.forEach(treat =>
+   {
+       copylist.push(Candy.copy(treat));
+   });
+   return copylist;
 }

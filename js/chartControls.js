@@ -58,7 +58,7 @@ function start() {
         .on('change', function()
         {
             sortBy = +d3.select(this).property('value');
-            sorting();
+            updateDataset(sorting(filtered_data));
         })
         .selectAll('option')
         .data(sortOptions)
@@ -74,7 +74,7 @@ function start() {
         .on('click', function() {
             ascending = !ascending;
             d3.select(this).text((ascending) ? ('↑') : ('↓'));
-            sorting();
+            updateDataset(sorting(filtered_data));
         });
 
     // Build filter controls
@@ -209,9 +209,8 @@ function start() {
 }
 
 function filterData() {
-    var anim_duration = 500;
 
-    filtered_data = copy(candy_data);
+    filtered_data = copyCandies(candy_data);
 
     for (var i = 0; i < candy_data.length; i++) {
         var new_likes = candy_data[i].likes.filter(
@@ -259,80 +258,38 @@ function filterData() {
         );
         filtered_data[i].neutral = new_neutral;
 
-        var total_length = new_likes.length + new_dislikes.length + new_neutral.length;
-        filtered_data[i].like_perc = new_likes.length * 1.0  / total_length;
-        filtered_data[i].dislike_perc = new_dislikes.length * 1.0  / total_length;
-        filtered_data[i].neutral_perc = new_neutral.length * 1.0  / total_length;
+        filtered_data[i].update();
     }
-    //console.log(filtered_data);
-
-    // update the joy bars
-    d3.select('#bar-chart').selectAll('.joy')
-        .data(filtered_data)
-        .transition()
-        .duration(anim_duration)
-        .attr('width', function(d) {
-            return x_scale(d.like_perc);
-        });
-
-    // update the despair bars
-    d3.select('#bar-chart').selectAll('.despair')
-        .data(filtered_data)
-        .transition()
-        .duration(anim_duration)
-        .attr('width', function(d) {
-            return x_scale(d.dislike_perc);
-        })
-        .attr('x', function(d) {
-            return (hor_pad + half_width) - x_scale(d.dislike_perc);
-        });
-
-    sorting();
-}
 
 
-// blessing from https://www.codementor.io/avijitgupta/deep-copying-in-js-7x6q8vh5d
-function copy(o) {
-   var output, v, key;
-   output = Array.isArray(o) ? [] : {};
-   for (key in o) {
-       v = o[key];
-       output[key] = (typeof v === "object") ? copy(v) : v;
-   }
-   return output;
+    filtered_data = sorting(filtered_data);
+    updateDataset(filtered_data);
+
+    var selected = getSelectedTreat();
+    if (selected !== undefined)
+    {
+        updateChart(selected, true);
+    }
 }
 
 /**
- * Sorting action for the chart.
+ * Sorting the dataset based on the selected option.
+ *
+ * @param dataset  the dataset to sort.
+ * @return the sorted dataset.
  */
- /*
-function sorting()
+function sorting(dataset)
 {
     if (sortBy === 0)
     {
-        updateDataset(sortByName(candy_data, ascending));
+        return sortByName(dataset, ascending);
     }
     else if (sortBy === 1)
     {
-        updateDataset(sortByLikes(candy_data, ascending));
+        return sortByLikes(dataset, ascending);
     }
     else if (sortBy === 2)
     {
-        updateDataset(sortByDislikes(candy_data, ascending));
-    }
-}*/
-function sorting()
-{
-    if (sortBy === 0)
-    {
-        updateDataset(sortByName(filtered_data, ascending));
-    }
-    else if (sortBy === 1)
-    {
-        updateDataset(sortByLikes(filtered_data, ascending));
-    }
-    else if (sortBy === 2)
-    {
-        updateDataset(sortByDislikes(filtered_data, ascending));
+        return sortByDislikes(dataset, ascending);
     }
 }
