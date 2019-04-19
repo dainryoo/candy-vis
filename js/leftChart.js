@@ -93,6 +93,10 @@ function buildLeftChart() {
             hovered_index = i;
             updateHovered(d);
         })
+        .on("mousemove", function(d)
+        {
+            updateTooltip(d3.event.pageX, d3.event.pageY, d.name);
+        })
         .on('mouseout', function(d, i)
         {
             d3.select(this).classed('hovered', false);
@@ -101,6 +105,7 @@ function buildLeftChart() {
                 .classed("hovered", false);
             hovered_index = -1;
             updateHovered();
+            tooltip.classed("visible", false);
         })
         .on('click', function(d, i)
         {
@@ -148,6 +153,10 @@ function buildLeftChart() {
             hovered_index = i;
             updateHovered(d);
         })
+        .on("mousemove", function(d)
+        {
+            updateTooltip(d3.event.pageX, d3.event.pageY, d.name);
+        })
         .on('mouseout', function(d, i)
         {
             d3.select(this).classed('hovered', false);
@@ -156,6 +165,7 @@ function buildLeftChart() {
                 .classed("hovered", false);
             hovered_index = -1;
             updateHovered();
+            tooltip.classed("visible", false);
         })
         .on('click', function(d, i)
         {
@@ -201,4 +211,13 @@ function getSelectedTreat()
         .select("#joy-bar-group")
         .select(".selected")
         .data()[0];
+}
+
+function updateTooltip(x, y, name)
+{
+    tooltip
+        .classed("visible", true)
+        .style("left", x + "px")
+        .style("top", y + "px")
+        .html(name);
 }

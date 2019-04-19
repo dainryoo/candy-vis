@@ -1,6 +1,7 @@
 var filename = "/candy.csv";
 var candy_data; // original candy data
 var filtered_data; // current filtered data
+var tooltip;
 
 // Load data and run program.
 d3.csv(filename, raw => getResponse(raw), (error, data) =>
@@ -11,6 +12,8 @@ d3.csv(filename, raw => getResponse(raw), (error, data) =>
 
     buildLeftChart();
     buildRightChart();
+
+    tooltip = d3.select("body").append("div").attr("class", "tooltip");
 
     updateDataset(sortByName(candy_data, true));
 });

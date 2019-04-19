@@ -199,3 +199,28 @@ h2 {
 #group-selection > p > label:first-child {
     margin-left: 28px;
 }
+
+/* Tooltip classes */
+.tooltip {
+    display: none;
+
+    position: absolute;
+    width: auto;
+    height: auto;
+    background: none;
+    margin-left: 20px;
+
+    font-size: 18px;
+    font-family: 'Nunito', sans-serif;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.visible {
+    display: inline-block;
+}
