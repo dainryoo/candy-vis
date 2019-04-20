@@ -69,10 +69,16 @@ class Candy
     update()
     {
         this.total = this.likes.length + this.dislikes.length + this.neutral.length;
-        this.like_perc = this.likes.length * 1.0 / this.total;
-        this.dislike_perc = this.dislikes.length * 1.0 / this.total;
-        this.neutral_perc = this.neutral.length * 1.0 / this.total;
-    }
+        if (this.total != 0) {
+            this.like_perc = this.likes.length * 1.0 / this.total;
+            this.dislike_perc = this.dislikes.length * 1.0 / this.total;
+            this.neutral_perc = this.neutral.length * 1.0 / this.total;
+        } else {
+            this.like_perc = 0;
+            this.dislike_perc = 0;
+            this.neutral_perc = 0;
+        }
+     }
 
     /**
      * Makes a copy of a candy object.
