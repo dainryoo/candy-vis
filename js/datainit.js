@@ -32,7 +32,8 @@ function getResponse(raw)
         }
     });
     // Return object representation of each response.
-    return RawResponse(raw.Q2_GENDER, +raw.Q3_AGE, raw.Q4_COUNTRY, liked, disliked, neutral);
+    var age = raw.Q3_AGE === "" ? -1 : +raw.Q3_AGE;
+    return RawResponse(raw.Q2_GENDER, age, raw.Q4_COUNTRY, liked, disliked, neutral);
 }
 
 /**
@@ -96,8 +97,8 @@ var candies = {
     Kit_Kat: new Candy("Kit Kat", "chocolate"),
     LaffyTaffy: new Candy("Laffy Taffy", "candy"),
     LemonHeads: new Candy("Lemonhead", "candy"),
-    Licorice_not_black: new Candy("Non-black Licorice", "candy"),
-    Licorice_yes_black: new Candy("Black Licorice", "candy"),
+    Licorice_not_black: new Candy("Non-black Licorice", "other"),
+    Licorice_yes_black: new Candy("Black Licorice", "other"),
     Lollipops: new Candy("Lollipops", "candy"),
     Mike_and_Ike: new Candy("Mike and Ike", "candy"),
     Milk_Duds: new Candy("Milk Duds", "chocolate"),
@@ -108,7 +109,7 @@ var candies = {
     Mr_Goodbar: new Candy("Mr. Goodbar", "chocolate"),
     Nerds: new Candy("Nerds", "candy"),
     Nestle_Crunch: new Candy("Nestlé Crunch", "chocolate"),
-    Peeps: new Candy("Peeps", "candy"),
+    Peeps: new Candy("Peeps", "other"),
     Pixy_Stix: new Candy("Pixy Stix", "candy"),
     Reese_s_Peanut_Butter_Cups: new Candy("Reese's Peanut Butter Cups", "chocolate"),
     Reese_s_Pieces: new Candy("Reese's Pieces", "chocolate"),
