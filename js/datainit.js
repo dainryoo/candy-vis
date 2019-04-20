@@ -80,7 +80,7 @@ var candies = {
     Any_full_sized_candy_bar: new Candy("Any Full Sized Candy Bars", "chocolate"),
     Butterfinger:  new Candy("Butterfinger", "chocolate"),
     Candy_Corn:  new Candy("Candy Corn", "candy"),
-    Chiclets: new Candy("Chiclets", "candy"),
+    Chiclets: new Candy("Chiclets", "other"),
     Dots: new Candy("Dots", "candy"),
     Fuzzy_Peaches: new Candy("Fuzzy Peaches", "candy"),
     Good_N_Plenty: new Candy("Good & Plenty", "candy"),

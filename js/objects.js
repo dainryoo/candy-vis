@@ -92,7 +92,76 @@ class Candy
         faker.update();
         return faker;
     }
+    // take in a candy object and add its likes, dislikes, and neutrals to the group of candies it is a part of
+    addResponsesOf(candy) {
+        for (var i = 0; i < candy.likes.length; i++) {
+            this.likes.push(candy.likes[i]);
+        }
+        for (var i = 0; i < candy.dislikes.length; i++) {
+            this.dislikes.push(candy.dislikes[i]);
+        }
+        for (var i = 0; i < candy.neutral.length; i++) {
+            this.neutral.push(candy.neutral[i]);
+        }
+    }
 }
+
+
+function unfilteredGroupedData(treatlist) {
+    var copylist = [];
+    var candyIndex = -1;
+    var chocolateIndex = -1;
+    var otherIndex = -1;
+    if (groupSelection[0]){
+        copylist.push(new Candy("All Candies (Group)", "group"));
+        candyIndex = 0;
+    }
+    if (groupSelection[1]){
+        copylist.push(new Candy("All Chocolates (Group)", "group"));
+        if (candyIndex == -1) {
+            chocolateIndex = 0;
+        } else {
+            chocolateIndex = 1;
+        }
+    }
+    if (groupSelection[2]){
+        copylist.push(new Candy("All Others (Group)", "group"));
+        if (chocolateIndex == -1) {
+            otherIndex = 0;
+        } else {
+            otherIndex = 1;
+        }
+        if (candyIndex != -1) {
+            otherIndex++;
+        }
+    }
+    treatlist.forEach(treat =>
+    {
+        if (treat.type == "candy") {
+            if (groupSelection[0]) {
+                copylist[candyIndex].addResponsesOf(treat);
+            } else {
+                copylist.push(Candy.copy(treat));
+            }
+        } else if (treat.type == "chocolate") {
+            if (groupSelection[1]) {
+                copylist[chocolateIndex].addResponsesOf(treat);
+            } else {
+                copylist.push(Candy.copy(treat));
+            }
+        } else {
+            if (groupSelection[2]) {
+                copylist[otherIndex].addResponsesOf(treat);
+            } else {
+                copylist.push(Candy.copy(treat));
+            }
+        }
+    });
+
+    console.log(copylist);
+    return copylist;
+}
+
 
 /**
  * Copies a list of candies.

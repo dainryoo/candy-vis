@@ -32,7 +32,7 @@ var countryOptions = ['USA', 'Canada', 'Other'];
 var countryFilter = [true, true, true]; // which country options we currently have selected
 
 var groupOptions = ['Candy', 'Chocolate', 'Other'];
-var groupSelection = [true, true, true]; // which group options we currently have selected
+var groupSelection = [false, false, false]; // which group options we currently have selected
 
 
 var x_scale, x_scale_reverse; // x-scales for left chart
@@ -191,7 +191,6 @@ function start() {
             })
         .append('input')
             .attr('type', 'checkbox')
-            .attr('checked', true)
             .attr('class', 'checkbox')
             .on('click', function(d, i) {
                 groupSelection[i] = d3.select(this).property('checked')
@@ -202,7 +201,7 @@ function start() {
                     d3.select('#label-group-' + i)
                         .style('color', '#919191');
                 }
-                // console.log(countryOptions[i] + ': ' + countryFilter[i]);
+                // console.log(groupOptions[i] + ': ' + groupSelection[i]);
                 filterData();
             });
 
@@ -210,10 +209,10 @@ function start() {
 
 function filterData() {
 
-    filtered_data = copyCandies(candy_data);
+    filtered_data = unfilteredGroupedData(candy_data);
 
-    for (var i = 0; i < candy_data.length; i++) {
-        var new_likes = candy_data[i].likes.filter(
+    for (var i = 0; i < filtered_data.length; i++) {
+        var new_likes = filtered_data[i].likes.filter(
             function(el) {
                 return ((el.gender == "M" && genderFilter[0]) ||
                     (el.gender == "F" && genderFilter[1]) ||
@@ -228,7 +227,7 @@ function filterData() {
         );
         filtered_data[i].likes = new_likes;
 
-        var new_dislikes = candy_data[i].dislikes.filter(
+        var new_dislikes = filtered_data[i].dislikes.filter(
             function(el) {
                 return ((el.gender == "M" && genderFilter[0]) ||
                     (el.gender == "F" && genderFilter[1]) ||
@@ -243,7 +242,7 @@ function filterData() {
         );
         filtered_data[i].dislikes = new_dislikes;
 
-        var new_neutral = candy_data[i].neutral.filter(
+        var new_neutral = filtered_data[i].neutral.filter(
             function(el) {
                 return ((el.gender == "M" && genderFilter[0]) ||
                     (el.gender == "F" && genderFilter[1]) ||
