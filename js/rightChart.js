@@ -5,7 +5,7 @@ var r_height = 350;
 var r_left_margin = 70;
 var r_right_margin = 70;
 var r_top_margin = 100;
-var r_bot_margin = 50;
+var r_bot_margin = 60;
 var text_horz_margin = r_width / 3.5;
 var text_vert_margin = 45;
 var text_betw_margin = 5;
@@ -70,6 +70,16 @@ function buildRightChart()
         .call(d3.axisLeft(ry_scale)
             .tickSizeOuter(0))
         .attr("class", "right-tick");
+
+    // Axis label
+    svg.append("g")
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "hanging")
+        .text("% of Respondents")
+        .attr("x", d => rx_scale(50))
+        .attr("y", (r_height - r_bot_margin + 30))
+        .attr("class", "label");
 
     // Create labels
     var group = svg.append("g").attr("id", "labels-group");
