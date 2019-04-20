@@ -158,7 +158,6 @@ function unfilteredGroupedData(treatlist) {
         }
     });
 
-    console.log(copylist);
     return copylist;
 }
 
