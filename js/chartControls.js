@@ -107,8 +107,13 @@ function start() {
         .default([minAge, maxAge])
         .fill('#2196f3')
         .on('onchange', function(val) {
-            minAge = val[0];
-            maxAge = val[1];
+            if (val[1] < val[0]) {
+                minAge = val[1];
+                maxAge = val[0];
+            } else {
+                minAge = val[0];
+                maxAge = val[1];
+            }
             d3.select('#age-filter').select('span')
                 .text('[' +minAge + ', ' + maxAge + ']');
             //console.log(minAge + ' ~ ' + maxAge);
