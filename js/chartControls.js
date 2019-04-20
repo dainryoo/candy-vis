@@ -33,15 +33,22 @@ var countryFilter = [true, true, true]; // which country options we currently ha
 
 var groupOptions = ['Candy', 'Chocolate', 'Other'];
 var groupSelection = [false, false, false]; // which group options we currently have selected
-
+var groupIndices = [-1, -1, -1]; // the indices of the bars of the groups
 
 var x_scale, x_scale_reverse; // x-scales for left chart
-var hor_pad, width, half_width;
+var hor_pad, width, half_width, bar_height, top_pad, bar_padding, title_top, title_height;
 
 function start() {
     hor_pad = 14; // horizontal padding for left chart
     width = 660; // total width of bar chart area
     half_width = (width - (hor_pad*2))/2; // width of each half of the bar char
+    bar_height = 15; // height of each individual bar
+    top_pad = 20; // padding space on top of axis
+    bar_padding = 0; // vertical space between each bar
+
+    title_top = 25; // top y value of chart title
+    title_height = 50; // how tall of a space the chart title takes up
+
     // x-scale for right half (0-100)
     x_scale = d3.scaleLinear()
         .range([0, half_width])

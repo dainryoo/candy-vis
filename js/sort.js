@@ -99,12 +99,60 @@ function updateDataset(candies)
         .duration(anim_duration)
         // .delay(anim_duration)
         .attr("x", d => hor_pad + half_width - x_scale(d.dislike_perc))
-        .attr("width", d => x_scale(d.dislike_perc));
+        .attr("width", d => x_scale(d.dislike_perc))
+        .attr("height", function(d, i) {
+            if (d.type == "group") {
+                if (d.name == "All Candies (Group)") {
+                    groupIndices[0] = i;
+                } else if (d.name == "All Chocolates (Group)") {
+                    groupIndices[1] = i;
+                } else {
+                    groupIndices[2] = i;
+                }
+                return bar_height*2;
+            } else {
+                return bar_height;
+            }
+        })
+        .attr('y', function(d,i) {
+            var extra_height = 0;
+            if (groupSelection[0] && groupIndices[0] < i) {
+                extra_height += bar_height;
+            }
+            if (groupSelection[1] && groupIndices[1] < i) {
+                extra_height += bar_height;
+            }
+            if (groupSelection[2] && groupIndices[2] < i) {
+                extra_height += bar_height;
+            }
+            return title_height + top_pad + i*(bar_height+bar_padding) + extra_height;
+        });
+
     joy_group.selectAll(".joy")
         .data(candies)
         .classed("selected", d => (selected === undefined) ? false : d.name === selected.name)
         .transition()
         // .delay(anim_duration)
         .duration(anim_duration)
-        .attr("width", d => x_scale(d.like_perc));
+        .attr("width", d => x_scale(d.like_perc))
+        .attr("height", function(d) {
+            if (d.type == "group") {
+                return bar_height*2;
+            } else {
+                return bar_height;
+            }
+        })
+        .attr('y', function(d,i) {
+            var extra_height = 0;
+            if (groupSelection[0] && groupIndices[0] < i) {
+                extra_height += bar_height;
+            }
+            if (groupSelection[1] && groupIndices[1] < i) {
+                extra_height += bar_height;
+            }
+            if (groupSelection[2] && groupIndices[2] < i) {
+                extra_height += bar_height;
+            }
+            return title_height + top_pad + i*(bar_height+bar_padding) + extra_height;
+        });
 }
